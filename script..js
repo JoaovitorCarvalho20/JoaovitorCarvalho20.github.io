@@ -79,16 +79,40 @@ function criartagLi(tarefa) {
     li.appendChild(span);
     li.appendChild(data);
     li.appendChild(div);
+    li.setAttribute('data-id', tarefa.id);
 
     return li;
 }
 
 // Função para editar uma tarefa
 function editar(idtarefa) {
-    alert(idtarefa);
+    // Procurar a tarefa com o ID correspondente na lista de tarefas
+    const tarefaElement = document.querySelector(`[data-id="${idtarefa}"]`);
+
+    if (tarefaElement) {
+        const novoNome = prompt('Digite o novo nome da tarefa:');
+        const novoData = prompt('Digite a nova data da tarefa:', tarefaElement.querySelector('.Data-Tarefa').innerHTML);
+
+        // Atualizar os elementos de texto da tarefa com os novos valores
+        tarefaElement.querySelector('.Texto-Tarefa').innerHTML = novoNome;
+        tarefaElement.querySelector('.Data-Tarefa').innerHTML = novoData;
+    }
 }
 
 // Função para excluir uma tarefa
 function excluir(idtarefa) {
-    alert(idtarefa);
+    // Procurar a tarefa com o ID correspondente na lista de tarefas
+    const tarefaElement = document.querySelector(`[data-id="${idtarefa}"]`);
+
+    if (tarefaElement) {
+        // Remover o elemento da lista de tarefas
+        tarefaElement.remove();
+    }
 }
+
+// Chamando as funções AdicionarTarefa, editar e excluir
+AdicionarTarefa({ nome: 'Tarefa 1', data: '2023-06-18', id: gerarid() });
+AdicionarTarefa({ nome: 'Tarefa 2', data: '2023-06-19', id: gerarid() });
+
+editar(1); // Exemplo de edição da tarefa com ID 1
+excluir(2); // Exemplo de exclusão da tarefa com ID 2
